@@ -1,9 +1,250 @@
-import { db,collection,getDocs,doc,setDoc,deleteDoc } from "./firebase.js";
-import { protect,money,dateBR,monthKey,today,toast,escapeHtml } from "./common.js";
-let uid,data=[];
-protect(async u=>{uid=u.uid;entryMonth.value=monthKey(new Date());entryMonth.onchange=render;newEntry.onclick=()=>open();closeEntry.onclick=cancelEntry.onclick=()=>entryModal.classList.add("hidden");entryBackdrop.onclick=()=>entryModal.classList.add("hidden");entryForm.onsubmit=save;entriesList.onclick=act;await load()});
-async function load(){const s=await getDocs(collection(db,"users",uid,"entries"));data=s.docs.map(d=>({id:d.id,...d.data()}));render()}
-function render(){const l=data.filter(i=>i.monthKey===entryMonth.value).sort((a,b)=>b.date.localeCompare(a.date));entrySummary.textContent=l.length?`${l.length} entrada(s) • ${money(l.reduce((s,i)=>s+Number(i.amount),0))}`:"Nenhuma entrada.";entriesList.innerHTML=l.length?l.map(i=>`<div class="record"><div><strong>${escapeHtml(i.description)}</strong><small>${dateBR(i.date)}</small></div><strong>${money(i.amount)}</strong><div><button data-a="edit" data-id="${i.id}">✎</button><button data-a="delete" data-id="${i.id}">🗑</button></div></div>`).join(""):'<p class="empty">Cadastre sua primeira entrada.</p>'}
-function open(i){entryForm.reset();entryId.value="";entryDate.value=today();if(i){entryId.value=i.id;entryDescription.value=i.description;entryAmount.value=i.amount;entryDate.value=i.date;entryNotes.value=i.notes||""}entryModal.classList.remove("hidden")}
-async function save(e){e.preventDefault();const id=entryId.value||crypto.randomUUID(),d=entryDate.value,i={id,description:entryDescription.value.trim(),amount:Number(entryAmount.value),date:d,monthKey:d.slice(0,7),notes:entryNotes.value.trim(),createdAt:Date.now()};await setDoc(doc(db,"users",uid,"entries",id),i);const x=data.findIndex(v=>v.id===id);x>=0?data[x]=i:data.push(i);entryModal.classList.add("hidden");render();toast("Entrada salva.")}
-async function act(e){const b=e.target.closest("[data-a]");if(!b)return;const i=data.find(v=>v.id===b.dataset.id);if(b.dataset.a==="edit")open(i);if(b.dataset.a==="delete"&&confirm(`Excluir "${i.description}"?`)){await deleteDoc(doc(db,"users",uid,"entries",i.id));data=data.filter(v=>v.id!==i.id);render();toast("Entrada excluída.")}}
+import {
+    db,
+    collection,
+    getDocs,
+    doc,
+    setDoc,
+    deleteDoc
+} from "./firebase.js";
+
+import {
+    protect,
+    money,
+    dateBR,
+    monthKey,
+    today,
+    toast,
+    escapeHtml
+} from "./common.js";
+
+let uid;
+let data = [];
+
+protect(async u => {
+
+    uid = u.uid;
+
+    entryMonth.value = monthKey(new Date());
+
+    entryMonth.onchange = render;
+
+    newEntry.onclick = () => open();
+
+    closeEntry.onclick =
+        cancelEntry.onclick =
+        () => entryModal.classList.add("hidden");
+
+    entryBackdrop.onclick = () =>
+        entryModal.classList.add("hidden");
+
+    entryForm.onsubmit = save;
+
+    entriesList.onclick = act;
+
+    await load();
+
+});
+
+async function load() {
+
+    const s = await getDocs(
+        collection(
+            db,
+            "users",
+            uid,
+            "entries"
+        )
+    );
+
+    data = s.docs.map(d => ({
+        id: d.id,
+        ...d.data()
+    }));
+
+    render();
+
+}
+
+function render() {
+
+    const l = data
+        .filter(i =>
+            i.monthKey === entryMonth.value
+        )
+        .sort((a, b) =>
+            b.date.localeCompare(a.date)
+        );
+
+    entrySummary.textContent = l.length
+        ? `${l.length} entrada(s) • ${money(
+            l.reduce(
+                (s, i) => s + Number(i.amount),
+                0
+            )
+        )}`
+        : "Nenhuma entrada.";
+
+    entriesList.innerHTML = l.length
+        ? l
+            .map(i => `
+                <div class="record">
+
+                    <div>
+
+                        <strong>
+                            ${escapeHtml(i.description)}
+                        </strong>
+
+                        <small>
+                            ${dateBR(i.date)}
+                        </small>
+
+                    </div>
+
+                    <strong>
+                        ${money(i.amount)}
+                    </strong>
+
+                    <div>
+
+                        <button
+                            data-a="edit"
+                            data-id="${i.id}"
+                        >
+                            ✎
+                        </button>
+
+                        <button
+                            data-a="delete"
+                            data-id="${i.id}"
+                        >
+                            🗑
+                        </button>
+
+                    </div>
+
+                </div>
+            `)
+            .join("")
+        : '<p class="empty">Cadastre sua primeira entrada.</p>';
+
+}
+
+function open(i) {
+
+    entryForm.reset();
+
+    entryId.value = "";
+    entryDate.value = today();
+
+    if (i) {
+
+        entryId.value = i.id;
+        entryDescription.value = i.description;
+        entryAmount.value = i.amount;
+        entryDate.value = i.date;
+        entryNotes.value = i.notes || "";
+
+    }
+
+    entryModal.classList.remove("hidden");
+
+}
+
+async function save(e) {
+
+    e.preventDefault();
+
+    const id =
+        entryId.value ||
+        crypto.randomUUID();
+
+    const d = entryDate.value;
+
+    const i = {
+        id,
+        description: entryDescription.value.trim(),
+        amount: Number(entryAmount.value),
+        date: d,
+        monthKey: d.slice(0, 7),
+        notes: entryNotes.value.trim(),
+        createdAt: Date.now()
+    };
+
+    await setDoc(
+        doc(
+            db,
+            "users",
+            uid,
+            "entries",
+            id
+        ),
+        i
+    );
+
+    const x = data.findIndex(
+        v => v.id === id
+    );
+
+    if (x >= 0) {
+
+        data[x] = i;
+
+    } else {
+
+        data.push(i);
+
+    }
+
+    entryModal.classList.add("hidden");
+
+    render();
+
+    toast("Entrada salva.");
+
+}
+
+async function act(e) {
+
+    const b = e.target.closest("[data-a]");
+
+    if (!b) {
+        return;
+    }
+
+    const i = data.find(
+        v => v.id === b.dataset.id
+    );
+
+    if (b.dataset.a === "edit") {
+
+        open(i);
+
+    }
+
+    if (
+        b.dataset.a === "delete" &&
+        confirm(`Excluir "${i.description}"?`)
+    ) {
+
+        await deleteDoc(
+            doc(
+                db,
+                "users",
+                uid,
+                "entries",
+                i.id
+            )
+        );
+
+        data = data.filter(
+            v => v.id !== i.id
+        );
+
+        render();
+
+        toast("Entrada excluída.");
+
+    }
+
+}

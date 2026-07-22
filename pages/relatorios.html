@@ -1,1 +1,284 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Relatório mensal | Meu Financeiro</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../css/style.css"></head><body data-page="relatorios"><div id="toast" class="toast"></div><aside id="sidebar" class="sidebar"><div class="brand"><div class="logo">R$</div><div><h2>Meu Financeiro</h2><small>Controle pessoal</small></div></div><nav class="nav"><a data-page="dashboard" href="dashboard.html">🏠 Dashboard</a><a data-page="entradas" href="entradas.html">💰 Entradas</a><a data-page="contas" href="contas.html">📄 Contas a pagar</a><a data-page="relatorios" href="relatorios.html">📊 Relatório mensal</a><a data-page="configuracoes" href="configuracoes.html">⚙️ Configurações</a></nav><div class="user"><div class="user-row"><div id="userInitial" class="avatar">U</div><div><strong id="userName">Usuário</strong><small id="userEmail"></small></div></div><button id="logoutButton" class="btn full">Sair</button></div></aside><main class="main"><header class="topbar"><button id="menuButton" class="menu">☰</button><div><h1>Relatório mensal</h1><p>Veja o resumo de um mês.</p></div></header><section class="actions"><label>Mês<input id="reportMonth" type="month"></label><button id="printReport" class="btn primary">Imprimir / Salvar PDF</button></section><section class="card report"><div class="report-title"><div><h2>Relatório financeiro</h2><p id="reportLabel"></p></div><div class="logo">R$</div></div><section class="grid4" style="margin-top:18px"><article class="summary"><span>Entradas</span><strong id="reportEntries"></strong></article><article class="summary"><span>Contas</span><strong id="reportBills"></strong></article><article class="summary"><span>Total pago</span><strong id="reportPaid"></strong></article><article class="summary highlight"><span>Sobra prevista</span><strong id="reportBalance"></strong></article></section><section class="grid2"><div><h3>Entradas</h3><div id="reportEntriesList"></div></div><div><h3>Contas</h3><div id="reportBillsList"></div></div></section></section></main><script type="module" src="../js/relatorios.js"></script></body></html>
+<!doctype html>
+
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>
+        Relatório mensal | Meu Financeiro
+    </title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+<body data-page="relatorios">
+
+    <div
+        id="toast"
+        class="toast"
+    ></div>
+
+    <aside
+        id="sidebar"
+        class="sidebar"
+    >
+
+        <div class="brand">
+
+            <div class="logo">
+                R$
+            </div>
+
+            <div>
+
+                <h2>
+                    Meu Financeiro
+                </h2>
+
+                <small>
+                    Controle pessoal
+                </small>
+
+            </div>
+
+        </div>
+
+        <nav class="nav">
+
+            <a
+                data-page="dashboard"
+                href="dashboard.html"
+            >
+                🏠 Dashboard
+            </a>
+
+            <a
+                data-page="entradas"
+                href="entradas.html"
+            >
+                💰 Entradas
+            </a>
+
+            <a
+                data-page="contas"
+                href="contas.html"
+            >
+                📄 Contas a pagar
+            </a>
+
+            <a
+                data-page="relatorios"
+                href="relatorios.html"
+            >
+                📊 Relatório mensal
+            </a>
+
+            <a
+                data-page="configuracoes"
+                href="configuracoes.html"
+            >
+                ⚙️ Configurações
+            </a>
+
+        </nav>
+
+        <div class="user">
+
+            <div class="user-row">
+
+                <div
+                    id="userInitial"
+                    class="avatar"
+                >
+                    U
+                </div>
+
+                <div>
+
+                    <strong id="userName">
+                        Usuário
+                    </strong>
+
+                    <small id="userEmail"></small>
+
+                </div>
+
+            </div>
+
+            <button
+                id="logoutButton"
+                class="btn full"
+            >
+                Sair
+            </button>
+
+        </div>
+
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <button
+                id="menuButton"
+                class="menu"
+            >
+                ☰
+            </button>
+
+            <div>
+
+                <h1>
+                    Relatório mensal
+                </h1>
+
+                <p>
+                    Veja o resumo de um mês.
+                </p>
+
+            </div>
+
+        </header>
+
+        <section class="actions">
+
+            <label>
+
+                Mês
+
+                <input
+                    id="reportMonth"
+                    type="month"
+                >
+
+            </label>
+
+            <button
+                id="printReport"
+                class="btn primary"
+            >
+                Imprimir / Salvar PDF
+            </button>
+
+        </section>
+
+        <section class="card report">
+
+            <div class="report-title">
+
+                <div>
+
+                    <h2>
+                        Relatório financeiro
+                    </h2>
+
+                    <p id="reportLabel"></p>
+
+                </div>
+
+                <div class="logo">
+                    R$
+                </div>
+
+            </div>
+
+            <section
+                class="grid4"
+                style="margin-top:18px"
+            >
+
+                <article class="summary">
+
+                    <span>
+                        Entradas
+                    </span>
+
+                    <strong id="reportEntries"></strong>
+
+                </article>
+
+                <article class="summary">
+
+                    <span>
+                        Contas
+                    </span>
+
+                    <strong id="reportBills"></strong>
+
+                </article>
+
+                <article class="summary">
+
+                    <span>
+                        Total pago
+                    </span>
+
+                    <strong id="reportPaid"></strong>
+
+                </article>
+
+                <article class="summary highlight">
+
+                    <span>
+                        Sobra prevista
+                    </span>
+
+                    <strong id="reportBalance"></strong>
+
+                </article>
+
+            </section>
+
+            <section class="grid2">
+
+                <div>
+
+                    <h3>
+                        Entradas
+                    </h3>
+
+                    <div id="reportEntriesList"></div>
+
+                </div>
+
+                <div>
+
+                    <h3>
+                        Contas
+                    </h3>
+
+                    <div id="reportBillsList"></div>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+    <script
+        type="module"
+        src="../js/relatorios.js"
+    ></script>
+
+</body>
+
+</html>

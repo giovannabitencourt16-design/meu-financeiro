@@ -1,4 +1,91 @@
-import { auth,db,doc,setDoc } from "./firebase.js";
-import { updateProfile,updatePassword } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-import { protect,toast } from "./common.js";
-protect(async u=>{profileName.value=u.displayName||"";profileEmail.value=u.email||"";profileForm.onsubmit=async e=>{e.preventDefault();const n=profileName.value.trim();await updateProfile(auth.currentUser,{displayName:n});await setDoc(doc(db,"users",u.uid),{name:n,email:u.email,updatedAt:Date.now()},{merge:true});userName.textContent=n;userInitial.textContent=n[0].toUpperCase();toast("Dados atualizados.")};passwordForm.onsubmit=async e=>{e.preventDefault();if(newPassword.value!==confirmPassword.value){toast("As senhas não são iguais.");return}try{await updatePassword(auth.currentUser,newPassword.value);e.target.reset();toast("Senha alterada.")}catch(x){console.error(x);toast("Entre novamente antes de alterar a senha.")}}});
+import { auth, db, doc, setDoc } from "./firebase.js";
+
+import {
+    updateProfile,
+    updatePassword
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+import {
+    protect,
+    toast
+} from "./common.js";
+
+// ===============================
+// PROTEGER PÁGINA
+// ===============================
+
+protect(async u => {
+
+    profileName.value = u.displayName || "";
+    profileEmail.value = u.email || "";
+
+    // ===============================
+    // ATUALIZAR PERFIL
+    // ===============================
+
+    profileForm.onsubmit = async e => {
+
+        e.preventDefault();
+
+        const n = profileName.value.trim();
+
+        await updateProfile(auth.currentUser, {
+            displayName: n
+        });
+
+        await setDoc(
+            doc(db, "users", u.uid),
+            {
+                name: n,
+                email: u.email,
+                updatedAt: Date.now()
+            },
+            {
+                merge: true
+            }
+        );
+
+        userName.textContent = n;
+        userInitial.textContent = n[0].toUpperCase();
+
+        toast("Dados atualizados.");
+
+    };
+
+    // ===============================
+    // ALTERAR SENHA
+    // ===============================
+
+    passwordForm.onsubmit = async e => {
+
+        e.preventDefault();
+
+        if (newPassword.value !== confirmPassword.value) {
+
+            toast("As senhas não são iguais.");
+            return;
+
+        }
+
+        try {
+
+            await updatePassword(
+                auth.currentUser,
+                newPassword.value
+            );
+
+            e.target.reset();
+
+            toast("Senha alterada.");
+
+        } catch (x) {
+
+            console.error(x);
+
+            toast("Entre novamente antes de alterar a senha.");
+
+        }
+
+    };
+
+});

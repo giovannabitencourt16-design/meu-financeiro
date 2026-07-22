@@ -1,1 +1,424 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Contas a pagar | Meu Financeiro</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../css/style.css"></head><body data-page="contas"><div id="toast" class="toast"></div><aside id="sidebar" class="sidebar"><div class="brand"><div class="logo">R$</div><div><h2>Meu Financeiro</h2><small>Controle pessoal</small></div></div><nav class="nav"><a data-page="dashboard" href="dashboard.html">🏠 Dashboard</a><a data-page="entradas" href="entradas.html">💰 Entradas</a><a data-page="contas" href="contas.html">📄 Contas a pagar</a><a data-page="relatorios" href="relatorios.html">📊 Relatório mensal</a><a data-page="configuracoes" href="configuracoes.html">⚙️ Configurações</a></nav><div class="user"><div class="user-row"><div id="userInitial" class="avatar">U</div><div><strong id="userName">Usuário</strong><small id="userEmail"></small></div></div><button id="logoutButton" class="btn full">Sair</button></div></aside><main class="main"><header class="topbar"><button id="menuButton" class="menu">☰</button><div><h1>Contas a pagar</h1><p>Organize seus vencimentos.</p></div></header><section class="actions"><label>Mês<input id="billMonth" type="month"></label><div class="filters-row"><input id="billSearch" type="search" placeholder="Pesquisar conta..."><select id="billFilter"><option value="all">Todos</option><option value="pending">Pendentes</option><option value="paid">Pagas</option><option value="overdue">Atrasadas</option></select> <button id="newBill" class="btn primary">+ Nova conta</button></div></section><section class="card"><div class="section-head"><div><h2>Contas cadastradas</h2><p id="billSummary"></p></div></div><div id="billsList"></div></section><div id="billModal" class="modal hidden"><div id="billBackdrop" class="backdrop"></div><div class="modal-card"><div class="modal-head"><h2>Nova conta</h2><button id="closeBill">×</button></div><form id="billForm" class="form-grid"><input id="billId" type="hidden"><label class="span2">Nome<input id="billName" required></label><label>Valor<input id="billAmount" type="number" min=".01" step=".01" required></label><label>Vencimento<input id="billDueDate" type="date" required></label><label>Categoria<select id="billCategory" required><option value="">Selecione</option><option>Moradia</option><option>Água</option><option>Luz</option><option>Internet</option><option>Alimentação</option><option>Transporte</option><option>Saúde</option><option>Cartão</option><option>Outros</option></select></label><label>Forma de pagamento<select id="billPaymentMethod"><option>Pix</option><option>Boleto</option><option>Débito automático</option><option>Cartão</option><option>Dinheiro</option></select></label><label class="span2 recurring-row"><input id="billRecurring" type="checkbox"><span><strong>Conta recorrente</strong><small>Será criada automaticamente nos próximos meses.</small></span></label><label class="span2">Observação<textarea id="billNotes"></textarea></label><div class="modal-actions span2"><button id="cancelBill" type="button" class="btn">Cancelar</button><button class="btn primary">Salvar</button></div></form></div></div></main><script type="module" src="../js/contas.js"></script></body></html>
+<!doctype html>
+
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>
+        Contas a pagar | Meu Financeiro
+    </title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+<body data-page="contas">
+
+    <div
+        id="toast"
+        class="toast"
+    ></div>
+
+    <!-- ==========================
+         SIDEBAR
+    =========================== -->
+
+    <aside
+        id="sidebar"
+        class="sidebar"
+    >
+
+        <div class="brand">
+
+            <div class="logo">
+                R$
+            </div>
+
+            <div>
+
+                <h2>Meu Financeiro</h2>
+
+                <small>
+                    Controle pessoal
+                </small>
+
+            </div>
+
+        </div>
+
+        <nav class="nav">
+
+            <a
+                data-page="dashboard"
+                href="dashboard.html"
+            >
+                🏠 Dashboard
+            </a>
+
+            <a
+                data-page="entradas"
+                href="entradas.html"
+            >
+                💰 Entradas
+            </a>
+
+            <a
+                data-page="contas"
+                href="contas.html"
+            >
+                📄 Contas a pagar
+            </a>
+
+            <a
+                data-page="relatorios"
+                href="relatorios.html"
+            >
+                📊 Relatório mensal
+            </a>
+
+            <a
+                data-page="configuracoes"
+                href="configuracoes.html"
+            >
+                ⚙️ Configurações
+            </a>
+
+        </nav>
+
+        <div class="user">
+
+            <div class="user-row">
+
+                <div
+                    id="userInitial"
+                    class="avatar"
+                >
+                    U
+                </div>
+
+                <div>
+
+                    <strong id="userName">
+                        Usuário
+                    </strong>
+
+                    <small id="userEmail"></small>
+
+                </div>
+
+            </div>
+
+            <button
+                id="logoutButton"
+                class="btn full"
+            >
+                Sair
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- ==========================
+         CONTEÚDO
+    =========================== -->
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <button
+                id="menuButton"
+                class="menu"
+            >
+                ☰
+            </button>
+
+            <div>
+
+                <h1>
+                    Contas a pagar
+                </h1>
+
+                <p>
+                    Organize seus vencimentos.
+                </p>
+
+            </div>
+
+        </header>
+
+        <!-- ==========================
+             FILTROS
+        =========================== -->
+
+        <section class="actions">
+
+            <label>
+
+                Mês
+
+                <input
+                    id="billMonth"
+                    type="month"
+                >
+
+            </label>
+
+            <div class="filters-row">
+
+                <input
+                    id="billSearch"
+                    type="search"
+                    placeholder="Pesquisar conta..."
+                >
+
+                <select id="billFilter">
+
+                    <option value="all">
+                        Todos
+                    </option>
+
+                    <option value="pending">
+                        Pendentes
+                    </option>
+
+                    <option value="paid">
+                        Pagas
+                    </option>
+
+                    <option value="overdue">
+                        Atrasadas
+                    </option>
+
+                </select>
+
+                <button
+                    id="newBill"
+                    class="btn primary"
+                >
+                    + Nova conta
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- ==========================
+             LISTA
+        =========================== -->
+
+        <section class="card">
+
+            <div class="section-head">
+
+                <div>
+
+                    <h2>
+                        Contas cadastradas
+                    </h2>
+
+                    <p id="billSummary"></p>
+
+                </div>
+
+            </div>
+
+            <div id="billsList"></div>
+
+        </section>
+
+        <!-- ==========================
+             MODAL
+        =========================== -->
+
+        <div
+            id="billModal"
+            class="modal hidden"
+        >
+
+            <div
+                id="billBackdrop"
+                class="backdrop"
+            ></div>
+
+            <div class="modal-card">
+
+                <div class="modal-head">
+
+                    <h2>
+                        Nova conta
+                    </h2>
+
+                    <button id="closeBill">
+                        ×
+                    </button>
+
+                </div>
+
+                <form
+                    id="billForm"
+                    class="form-grid"
+                >
+
+                    <input
+                        id="billId"
+                        type="hidden"
+                    >
+
+                    <label class="span2">
+
+                        Nome
+
+                        <input
+                            id="billName"
+                            required
+                        >
+
+                    </label>
+
+                    <label>
+
+                        Valor
+
+                        <input
+                            id="billAmount"
+                            type="number"
+                            min=".01"
+                            step=".01"
+                            required
+                        >
+
+                    </label>
+
+                    <label>
+
+                        Vencimento
+
+                        <input
+                            id="billDueDate"
+                            type="date"
+                            required
+                        >
+
+                    </label>
+
+                    <label>
+
+                        Categoria
+
+                        <select
+                            id="billCategory"
+                            required
+                        >
+
+                            <option value="">
+                                Selecione
+                            </option>
+
+                            <option>Moradia</option>
+                            <option>Água</option>
+                            <option>Luz</option>
+                            <option>Internet</option>
+                            <option>Alimentação</option>
+                            <option>Transporte</option>
+                            <option>Saúde</option>
+                            <option>Cartão</option>
+                            <option>Outros</option>
+
+                        </select>
+
+                    </label>
+
+                    <label>
+
+                        Forma de pagamento
+
+                        <select id="billPaymentMethod">
+
+                            <option>Pix</option>
+                            <option>Boleto</option>
+                            <option>Débito automático</option>
+                            <option>Cartão</option>
+                            <option>Dinheiro</option>
+
+                        </select>
+
+                    </label>
+
+                    <label class="span2 recurring-row">
+
+                        <input
+                            id="billRecurring"
+                            type="checkbox"
+                        >
+
+                        <span>
+
+                            <strong>
+                                Conta recorrente
+                            </strong>
+
+                            <small>
+                                Será criada automaticamente nos próximos meses.
+                            </small>
+
+                        </span>
+
+                    </label>
+
+                    <label class="span2">
+
+                        Observação
+
+                        <textarea id="billNotes"></textarea>
+
+                    </label>
+
+                    <div class="modal-actions span2">
+
+                        <button
+                            id="cancelBill"
+                            type="button"
+                            class="btn"
+                        >
+                            Cancelar
+                        </button>
+
+                        <button class="btn primary">
+                            Salvar
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <script
+        type="module"
+        src="../js/contas.js"
+    ></script>
+
+</body>
+
+</html>

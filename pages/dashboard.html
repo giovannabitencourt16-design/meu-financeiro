@@ -1,1 +1,325 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dashboard | Meu Financeiro</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../css/style.css"></head><body data-page="dashboard"><div id="toast" class="toast"></div><aside id="sidebar" class="sidebar"><div class="brand"><div class="logo">R$</div><div><h2>Meu Financeiro</h2><small>Controle pessoal</small></div></div><nav class="nav"><a data-page="dashboard" href="dashboard.html">🏠 Dashboard</a><a data-page="entradas" href="entradas.html">💰 Entradas</a><a data-page="contas" href="contas.html">📄 Contas a pagar</a><a data-page="relatorios" href="relatorios.html">📊 Relatório mensal</a><a data-page="configuracoes" href="configuracoes.html">⚙️ Configurações</a></nav><div class="user"><div class="user-row"><div id="userInitial" class="avatar">U</div><div><strong id="userName">Usuário</strong><small id="userEmail"></small></div></div><button id="logoutButton" class="btn full">Sair</button></div></aside><main class="main"><header class="topbar"><button id="menuButton" class="menu">☰</button><div><h1>Dashboard</h1><p>Resumo simples do seu mês.</p></div></header><section class="month card"><button id="prevMonth">‹</button><div><small>Mês selecionado</small><strong id="monthLabel">—</strong></div><button id="nextMonth">›</button></section><section class="grid4"><article class="card summary"><span>Entradas</span><strong id="totalEntries"></strong></article><article class="card summary"><span>Contas</span><strong id="totalBills"></strong></article><article class="card summary"><span>Falta pagar</span><strong id="pendingBills"></strong></article><article class="card summary highlight"><span>Sobra prevista</span><strong id="balance"></strong></article></section><section class="status-grid"><article class="card status-card"><span>Pagas</span><strong id="paidCount">0</strong></article><article class="card status-card"><span>Pendentes</span><strong id="pendingCount">0</strong></article><article class="card status-card danger-card"><span>Atrasadas</span><strong id="overdueCount">0</strong></article></section><section class="grid2"><article class="card"><div class="section-head"><div><h2>Próximos vencimentos</h2><p>Contas pendentes</p></div></div><div id="upcoming"></div></article><article class="card"><div class="section-head"><div><h2>Últimas entradas</h2><p>Dinheiro recebido</p></div></div><div id="recentEntries"></div></article></section></main><script type="module" src="../js/dashboard.js"></script></body></html>
+<!doctype html>
+
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>
+        Dashboard | Meu Financeiro
+    </title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+<body data-page="dashboard">
+
+    <div
+        id="toast"
+        class="toast"
+    ></div>
+
+    <aside
+        id="sidebar"
+        class="sidebar"
+    >
+
+        <div class="brand">
+
+            <div class="logo">
+                R$
+            </div>
+
+            <div>
+
+                <h2>
+                    Meu Financeiro
+                </h2>
+
+                <small>
+                    Controle pessoal
+                </small>
+
+            </div>
+
+        </div>
+
+        <nav class="nav">
+
+            <a
+                data-page="dashboard"
+                href="dashboard.html"
+            >
+                🏠 Dashboard
+            </a>
+
+            <a
+                data-page="entradas"
+                href="entradas.html"
+            >
+                💰 Entradas
+            </a>
+
+            <a
+                data-page="contas"
+                href="contas.html"
+            >
+                📄 Contas a pagar
+            </a>
+
+            <a
+                data-page="relatorios"
+                href="relatorios.html"
+            >
+                📊 Relatório mensal
+            </a>
+
+            <a
+                data-page="configuracoes"
+                href="configuracoes.html"
+            >
+                ⚙️ Configurações
+            </a>
+
+        </nav>
+
+        <div class="user">
+
+            <div class="user-row">
+
+                <div
+                    id="userInitial"
+                    class="avatar"
+                >
+                    U
+                </div>
+
+                <div>
+
+                    <strong id="userName">
+                        Usuário
+                    </strong>
+
+                    <small id="userEmail"></small>
+
+                </div>
+
+            </div>
+
+            <button
+                id="logoutButton"
+                class="btn full"
+            >
+                Sair
+            </button>
+
+        </div>
+
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <button
+                id="menuButton"
+                class="menu"
+            >
+                ☰
+            </button>
+
+            <div>
+
+                <h1>
+                    Dashboard
+                </h1>
+
+                <p>
+                    Resumo simples do seu mês.
+                </p>
+
+            </div>
+
+        </header>
+
+        <section class="month card">
+
+            <button id="prevMonth">
+                ‹
+            </button>
+
+            <div>
+
+                <small>
+                    Mês selecionado
+                </small>
+
+                <strong id="monthLabel">
+                    —
+                </strong>
+
+            </div>
+
+            <button id="nextMonth">
+                ›
+            </button>
+
+        </section>
+
+        <section class="grid4">
+
+            <article class="card summary">
+
+                <span>
+                    Entradas
+                </span>
+
+                <strong id="totalEntries"></strong>
+
+            </article>
+
+            <article class="card summary">
+
+                <span>
+                    Contas
+                </span>
+
+                <strong id="totalBills"></strong>
+
+            </article>
+
+            <article class="card summary">
+
+                <span>
+                    Falta pagar
+                </span>
+
+                <strong id="pendingBills"></strong>
+
+            </article>
+
+            <article class="card summary highlight">
+
+                <span>
+                    Sobra prevista
+                </span>
+
+                <strong id="balance"></strong>
+
+            </article>
+
+        </section>
+
+        <section class="status-grid">
+
+            <article class="card status-card">
+
+                <span>
+                    Pagas
+                </span>
+
+                <strong id="paidCount">
+                    0
+                </strong>
+
+            </article>
+
+            <article class="card status-card">
+
+                <span>
+                    Pendentes
+                </span>
+
+                <strong id="pendingCount">
+                    0
+                </strong>
+
+            </article>
+
+            <article class="card status-card danger-card">
+
+                <span>
+                    Atrasadas
+                </span>
+
+                <strong id="overdueCount">
+                    0
+                </strong>
+
+            </article>
+
+        </section>
+
+        <section class="grid2">
+
+            <article class="card">
+
+                <div class="section-head">
+
+                    <div>
+
+                        <h2>
+                            Próximos vencimentos
+                        </h2>
+
+                        <p>
+                            Contas pendentes
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div id="upcoming"></div>
+
+            </article>
+
+            <article class="card">
+
+                <div class="section-head">
+
+                    <div>
+
+                        <h2>
+                            Últimas entradas
+                        </h2>
+
+                        <p>
+                            Dinheiro recebido
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div id="recentEntries"></div>
+
+            </article>
+
+        </section>
+
+    </main>
+
+    <script
+        type="module"
+        src="../js/dashboard.js"
+    ></script>
+
+</body>
+
+</html>

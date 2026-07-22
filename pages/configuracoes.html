@@ -1,1 +1,259 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Configurações | Meu Financeiro</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../css/style.css"></head><body data-page="configuracoes"><div id="toast" class="toast"></div><aside id="sidebar" class="sidebar"><div class="brand"><div class="logo">R$</div><div><h2>Meu Financeiro</h2><small>Controle pessoal</small></div></div><nav class="nav"><a data-page="dashboard" href="dashboard.html">🏠 Dashboard</a><a data-page="entradas" href="entradas.html">💰 Entradas</a><a data-page="contas" href="contas.html">📄 Contas a pagar</a><a data-page="relatorios" href="relatorios.html">📊 Relatório mensal</a><a data-page="configuracoes" href="configuracoes.html">⚙️ Configurações</a></nav><div class="user"><div class="user-row"><div id="userInitial" class="avatar">U</div><div><strong id="userName">Usuário</strong><small id="userEmail"></small></div></div><button id="logoutButton" class="btn full">Sair</button></div></aside><main class="main"><header class="topbar"><button id="menuButton" class="menu">☰</button><div><h1>Configurações</h1><p>Atualize seus dados.</p></div></header><section class="settings"><article class="card"><h2>Dados pessoais</h2><form id="profileForm" class="stack"><label>Nome<input id="profileName" required></label><label>E-mail<input id="profileEmail" disabled></label><button class="btn primary">Salvar alterações</button></form></article><article class="card"><h2>Alterar senha</h2><form id="passwordForm" class="stack"><label>Nova senha<input id="newPassword" type="password" minlength="6" required></label><label>Confirmar<input id="confirmPassword" type="password" minlength="6" required></label><button class="btn">Alterar senha</button></form></article></section></main><script type="module" src="../js/configuracoes.js"></script></body></html>
+<!doctype html>
+
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>
+        Configurações | Meu Financeiro
+    </title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+<body data-page="configuracoes">
+
+    <div
+        id="toast"
+        class="toast"
+    ></div>
+
+    <aside
+        id="sidebar"
+        class="sidebar"
+    >
+
+        <div class="brand">
+
+            <div class="logo">
+                R$
+            </div>
+
+            <div>
+
+                <h2>
+                    Meu Financeiro
+                </h2>
+
+                <small>
+                    Controle pessoal
+                </small>
+
+            </div>
+
+        </div>
+
+        <nav class="nav">
+
+            <a
+                data-page="dashboard"
+                href="dashboard.html"
+            >
+                🏠 Dashboard
+            </a>
+
+            <a
+                data-page="entradas"
+                href="entradas.html"
+            >
+                💰 Entradas
+            </a>
+
+            <a
+                data-page="contas"
+                href="contas.html"
+            >
+                📄 Contas a pagar
+            </a>
+
+            <a
+                data-page="relatorios"
+                href="relatorios.html"
+            >
+                📊 Relatório mensal
+            </a>
+
+            <a
+                data-page="configuracoes"
+                href="configuracoes.html"
+            >
+                ⚙️ Configurações
+            </a>
+
+        </nav>
+
+        <div class="user">
+
+            <div class="user-row">
+
+                <div
+                    id="userInitial"
+                    class="avatar"
+                >
+                    U
+                </div>
+
+                <div>
+
+                    <strong id="userName">
+                        Usuário
+                    </strong>
+
+                    <small id="userEmail"></small>
+
+                </div>
+
+            </div>
+
+            <button
+                id="logoutButton"
+                class="btn full"
+            >
+                Sair
+            </button>
+
+        </div>
+
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <button
+                id="menuButton"
+                class="menu"
+            >
+                ☰
+            </button>
+
+            <div>
+
+                <h1>
+                    Configurações
+                </h1>
+
+                <p>
+                    Atualize seus dados.
+                </p>
+
+            </div>
+
+        </header>
+
+        <section class="settings">
+
+            <article class="card">
+
+                <h2>
+                    Dados pessoais
+                </h2>
+
+                <form
+                    id="profileForm"
+                    class="stack"
+                >
+
+                    <label>
+
+                        Nome
+
+                        <input
+                            id="profileName"
+                            required
+                        >
+
+                    </label>
+
+                    <label>
+
+                        E-mail
+
+                        <input
+                            id="profileEmail"
+                            disabled
+                        >
+
+                    </label>
+
+                    <button class="btn primary">
+                        Salvar alterações
+                    </button>
+
+                </form>
+
+            </article>
+
+            <article class="card">
+
+                <h2>
+                    Alterar senha
+                </h2>
+
+                <form
+                    id="passwordForm"
+                    class="stack"
+                >
+
+                    <label>
+
+                        Nova senha
+
+                        <input
+                            id="newPassword"
+                            type="password"
+                            minlength="6"
+                            required
+                        >
+
+                    </label>
+
+                    <label>
+
+                        Confirmar
+
+                        <input
+                            id="confirmPassword"
+                            type="password"
+                            minlength="6"
+                            required
+                        >
+
+                    </label>
+
+                    <button class="btn">
+                        Alterar senha
+                    </button>
+
+                </form>
+
+            </article>
+
+        </section>
+
+    </main>
+
+    <script
+        type="module"
+        src="../js/configuracoes.js"
+    ></script>
+
+</body>
+
+</html>
